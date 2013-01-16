@@ -30,16 +30,28 @@ def isPrime(n):
     return True
 
 def main():
-
+    """ Iterates through all 4-digit numbers
+        checks a list of all permutations of the primes it finds
+        and looks for an arithmetic sequence in that list. """
+    
     unusualPrimes = []
+    #We only care about 4-digit numbers.
     for i in range(1000,10000):
+
+        #We only care about primes.
         if isPrime(i):
             somePerms = []
             for perm in permutations(str(i)):
                 num = int(''.join(perm))
+
+                #Add permutations that are prime to a temp list.
+                #Avoid duplicates or primes we have already found in the main loop.
                 if isPrime(num) and not num in somePerms and num >= i:
                     somePerms.append(num)
+            #The sequence will be at least length 3.
             if len(somePerms) > 2:
+
+                #Look through the list to see if there is an arithmetic sequence.
                 firstPrime = somePerms[0]
                 for j in range(1,len(somePerms)):
                     difference = somePerms[j] - firstPrime
@@ -51,6 +63,9 @@ def main():
                 #print somePerms
     for arithmeticSeq in unusualPrimes:
         print ''.join(["%s" % prime for prime in arithmeticSeq])
+
+
+        
 if __name__  == "__main__":
     main()
     
